@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
-import { Axios } from 'axios';
+import axios from 'axios';
 
 // Weather context
 const WeatherContext = createContext();
@@ -22,11 +22,14 @@ export const WeatherProvider = ({ children }) => {
     setError(null);
 
     try {
-      const response = await Axios.get(
+      const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=4998125fd66a1e50e358491463b4d949&units=metric`
       );
+      console.log("response ", response.data)
+
       setWeatherData(response.data);
     } catch (err) {
+      console.log("err ", err)
       setError('City not found or an error occurred while fetching data.');
     } finally {
       setLoading(false);
